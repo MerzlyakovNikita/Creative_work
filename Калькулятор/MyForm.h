@@ -10,7 +10,7 @@ namespace Calculator {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// ������ ��� MyForm
+	/// Сводка для MyForm
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
@@ -19,13 +19,13 @@ namespace Calculator {
 		{
 			InitializeComponent();
 			//
-			//TODO: �������� ��� ������������
+			//TODO: добавьте код конструктора
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// ���������� ��� ������������ �������.
+		/// Освободить все используемые ресурсы.
 		/// </summary>
 		~MyForm()
 		{
@@ -34,9 +34,6 @@ namespace Calculator {
 				delete components;
 			}
 		}
-
-
-
 
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ label1;
@@ -67,27 +64,21 @@ namespace Calculator {
 	private: System::Windows::Forms::Label^ label14;
 	private: System::Windows::Forms::TextBox^ textBox15;
 	private: System::Windows::Forms::TextBox^ textBox1;
-
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::TextBox^ textBox2;
-
-
-
-
-
 
 	protected:
 
 	private:
 		/// <summary>
-		/// ������������ ���������� ������������.
+		/// Обязательная переменная конструктора.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ��������� ����� ��� ��������� ������������ � �� ��������� 
-		/// ���������� ����� ������ � ������� ��������� ����.
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -135,7 +126,7 @@ namespace Calculator {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(174, 26);
 			this->button1->TabIndex = 7;
-			this->button1->Text = L"������ ������� ���������";
+			this->button1->Text = L"Решить систему уравнений";
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -161,7 +152,7 @@ namespace Calculator {
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(283, 17);
 			this->label10->TabIndex = 28;
-			this->label10->Text = L"��������� ������� �������� ���������:";
+			this->label10->Text = L"Заполните систему линейных уравнений:";
 			this->label10->Click += gcnew System::EventHandler(this, &MyForm::label10_Click);
 			// 
 			// label2
@@ -351,7 +342,7 @@ namespace Calculator {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 26);
 			this->button2->TabIndex = 48;
-			this->button2->Text = L"��������";
+			this->button2->Text = L"Очистить";
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
@@ -373,7 +364,7 @@ namespace Calculator {
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(52, 17);
 			this->label11->TabIndex = 50;
-			this->label11->Text = L"�����:";
+			this->label11->Text = L"Ответ:";
 			// 
 			// label12
 			// 
@@ -493,7 +484,7 @@ namespace Calculator {
 			this->Controls->Add(this->button1);
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"MyForm";
-			this->Text = L"�����������";
+			this->Text = L"Калькулятор";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -591,8 +582,9 @@ private: System::Void label10_Click(System::Object^ sender, System::EventArgs^ e
 		   return (a11 * a22 * c3) + (a12 * c2 * a31) + (c1 * a21 * a32) -
 			   (c1 * a22 * a31) - (a11 * c2 * a32) - (a12 * a21 * c3);
 	   }
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e)
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) // кнопка "Решить систему уравнений"
 {
+	// коэффициенты уравнений
 	double coefA1 = System::Convert::ToDouble(textBox1->Text);
 	double coefB1 = System::Convert::ToDouble(textBox2->Text);
 	double coefC1 = System::Convert::ToDouble(textBox3->Text);
@@ -608,9 +600,11 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	double coefC3 = System::Convert::ToDouble(textBox10->Text);
 	double coefD3 = System::Convert::ToDouble(textBox9->Text);
 
+	// массивы, содержащие коэф-ты уравнений
 	double coefficientsMatrix3x3[3][3];
 	double constantTermsMatrix3x1[3];
 
+	// заполенение массивов коэф-ми
 	coefficientsMatrix3x3[0][0] = coefA1;
 	coefficientsMatrix3x3[0][1] = coefB1;
 	coefficientsMatrix3x3[0][2] = coefC1;
@@ -627,14 +621,15 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 	constantTermsMatrix3x1[1] = coefD2;
 	constantTermsMatrix3x1[2] = coefD3;
 
+	// нахождение детерминантов матриц
 	double det = determinant(coefficientsMatrix3x3);
 	double detX1 = determinantX1(coefficientsMatrix3x3, constantTermsMatrix3x1);
 	double detX2 = determinantX2(coefficientsMatrix3x3, constantTermsMatrix3x1);
 	double detX3 = determinantX3(coefficientsMatrix3x3, constantTermsMatrix3x1);
 
-	float X = (float)detX1 / (float)det;
-	float Y = (float)detX2 / (float)det;
-	float Z = (float)detX3 / (float)det;
+	float X = (float)detX1 / (float)det; // нахождение значения переменной X
+	float Y = (float)detX2 / (float)det; // нахождение значения переменной Y
+	float Z = (float)detX3 / (float)det; // нахождение значения переменной Z
 
 	if (det != 0)
 	{
@@ -643,9 +638,10 @@ private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e
 		textBox15->Text = System::Convert::ToString(Z);
 	}
 	else
-		MessageBox::Show("������� �� ����� �������");
+		MessageBox::Show("Система не имеет решений");
 }
-private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) // кнопка "Очистить"
+{
 	textBox1->Text = ""; textBox2->Text = ""; textBox3->Text = ""; textBox4->Text = "";
 	textBox5->Text = ""; textBox6->Text = ""; textBox7->Text = ""; textBox8->Text = "";
 	textBox9->Text = ""; textBox10->Text = ""; textBox11->Text = ""; textBox12->Text = "";
@@ -654,7 +650,7 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	char number = e->KeyChar;
 
-	if ((e->KeyChar <= 47 || e->KeyChar >= 58) && number != 8 && number != 44 && number != 45)
+	if ((e->KeyChar <= 47 || e->KeyChar >= 58) && number != 8 && number != 44 && number != 45) // условие, которое не даст использовать ничего кроме цифр, запятой, минуса и backspace
 		e->Handled = true;
 }
 private: System::Void textBox2_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
